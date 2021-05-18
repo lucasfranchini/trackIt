@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import logo from "./Logo.png";
+import Input from "./Input";
 
 export default function Login(){
     return (
         <Body>
-            <img src={logo} alt="TrackIt"/>
+            <Img src={logo} alt="TrackIt"/>
             <Input type="text" placeholder="email"/>
             <Input type="password" placeholder="senha"/>
             <Button>Entrar</Button>
@@ -15,6 +16,10 @@ export default function Login(){
         </Body>
     );
 }
+
+const Img = styled.img`
+    margin-bottom:25px;
+`
 
 const Body = styled.div`
     display: flex;
@@ -31,17 +36,6 @@ const Body = styled.div`
         color: #52B6FF;
         }
 
-`
-const Input = styled.input`
-    width:100%;
-    height:45px;
-    margin-bottom: 6px;
-    border: 1px solid #D5D5D5;
-    border-radius: 5px;
-    font-size: 20px; 
-    &::placeholder{
-        color:#DBDBDB;
-    }
 `
 const Button = styled.button`
     width: 100%;
