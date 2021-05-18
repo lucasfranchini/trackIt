@@ -24,8 +24,13 @@ export default function SignUp(){
         return !!pattern.test(str);
     }
 
+    function validateEmail(email) {
+        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+      }
+
     function register(){
-        if(!body.email.includes("@") || !body.email.includes("."))
+        if(!validateEmail(body.email))
         {
             alert("preencha o email corretamente");
             return;

@@ -1,21 +1,29 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../Assets/Logo.png";
 import Input from "../styles/Input";
 import { useState } from "react";
+import axios from "axios";
 
 export default function Login(){
     const [body,setBody] = useState({
         email: "" ,
         password: ""
     });
+    const history = useHistory();
+
+    function signIn(){
+        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",body);
+        promise.then(()=>history.push("/habitos"));
+        promise.catch(console.log);
+    }
     
     return (
         <Body>
             <Img src={logo} alt="TrackIt"/>
             <Input type="text" placeholder="email" onChange={e=>setBody({...body,email: e.target.value})} value={body.email}/>
             <Input type="password" placeholder="senha" onChange={e=>setBody({...body,password: e.target.value})} value={body.password}/>
-            <Button>Entrar</Button>
+            <Button onClick={signIn}>Entrar</Button>
             <Link to="/cadastro">
                 <span>Não tem uma conta? Cadastre-se!</span>
             </Link>
