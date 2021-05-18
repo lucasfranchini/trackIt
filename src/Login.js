@@ -1,14 +1,20 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from "./Logo.png";
-import Input from "./Input";
+import logo from "./resources/Logo.png";
+import Input from "./styles/Input";
+import { useState } from "react";
 
 export default function Login(){
+    const [body,setBody] = useState({
+        email: "" ,
+        password: ""
+    });
+    
     return (
         <Body>
             <Img src={logo} alt="TrackIt"/>
-            <Input type="text" placeholder="email"/>
-            <Input type="password" placeholder="senha"/>
+            <Input type="text" placeholder="email" onChange={e=>setBody({...body,email: e.target.value})} value={body.email}/>
+            <Input type="password" placeholder="senha" onChange={e=>setBody({...body,password: e.target.value})} value={body.password}/>
             <Button>Entrar</Button>
             <Link to="/cadastro">
                 <span>Não tem uma conta? Cadastre-se!</span>

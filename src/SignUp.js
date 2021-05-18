@@ -1,18 +1,16 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from "./Logo.png";
-import Input from "./Input";
+import logo from "./resources/Logo.png";
+import Input from "./styles/Input";
 import { useState } from "react";
 
 export default function SignUp(){
-    const [body,setBody] = useState(
-        {
+    const [body,setBody] = useState({
             email: "",
             name: "",
             image: "",
             password: ""
-        }
-    ); 
+        }); 
     
     
     return (
