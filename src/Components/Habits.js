@@ -9,4 +9,7 @@ export default function Habits(){
 }
 const Body = styled.div`
     width:100%;
+    margin:70px 0;
+    height:100vh;
+    background:#e5e5e5;
 `

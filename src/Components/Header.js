@@ -5,13 +5,13 @@ export default function Header(){
     let location = useLocation();
     if(location.pathname==="/" || location.pathname==="/cadastro") return (<></>);
     return(
-        <Menu>
+        <Body>
             <span>TrackIt</span>
             <Img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Beluga_oceanografic.jpg/280px-Beluga_oceanografic.jpg" alt="User"/>
-        </Menu>
+        </Body>
     );
 }
-const Menu = styled.div`
+const Body = styled.div`
     width: 100%;
     height: 70px;
     background:#126BA5;

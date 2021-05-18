@@ -4,6 +4,7 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import Habits from "./Habits";
 import Header from "./Header";
+import Menu from "./Menu";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Habits/>
         </Route>
       </Switch>
+      <Menu/>
     </BrowserRouter>
     </>
   );

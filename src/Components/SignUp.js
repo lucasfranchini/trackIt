@@ -6,7 +6,7 @@ import Input from "../styles/Input";
 import { useState } from "react";
 import axios from "axios";
 import Loader from "react-loader-spinner";
-import {validateEmail,validateURL} from "./Assets/Validate";
+import {validateEmail,validateURL} from "./Resoruces/Validate";
 
 export default function SignUp(){
     const [body,setBody] = useState({
