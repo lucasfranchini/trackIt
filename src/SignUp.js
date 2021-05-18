@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import logo from "./resources/Logo.png";
 import Input from "./styles/Input";
 import { useState } from "react";
+import axios from "axios";
 
 export default function SignUp(){
     const [body,setBody] = useState({
@@ -11,8 +12,33 @@ export default function SignUp(){
             image: "",
             password: ""
         }); 
-    
-    
+    let history =  useHistory();
+
+    function validateURL(str) {
+        var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
+            '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+        return !!pattern.test(str);
+    }
+
+    function register(){
+        if(!body.email.includes("@") || !body.email.includes("."))
+        {
+            alert("preencha o email corretamente");
+            return;
+        }
+        console.log(validateURL(body.image))
+        if(!validateURL(body.image)){
+            alert("preencha o endereço da imagem corretamente");
+            return;
+        }
+        const promise =  axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",body);
+        promise.then(()=>history.push("/"));
+        promise.catch(console.log);
+    }
     return (
         <Body>
             <Img src={logo} alt="TrackIt"/>
@@ -20,7 +46,7 @@ export default function SignUp(){
             <Input type="password" placeholder="senha" onChange={e=>setBody({...body,password: e.target.value})} value={body.password}/>
             <Input type="text" placeholder="nome" onChange={e=>setBody({...body,name: e.target.value})} value={body.name}/>
             <Input type="text" placeholder="foto" onChange={e=>setBody({...body,image: e.target.value})} value={body.image}/>
-            <Button onClick={()=>console.log(body)}>Cadastrar</Button>
+            <Button onClick={register}>Cadastrar</Button>
             <Link to="/">
                 <span>Já tem uma conta? Faça login!</span>
             </Link>
