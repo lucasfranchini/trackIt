@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import logo from "./resources/Logo.png";
-import Input from "./styles/Input";
+import logo from "../Assets/Logo.png";
+import Input from "../styles/Input";
 import { useState } from "react";
 
 export default function Login(){

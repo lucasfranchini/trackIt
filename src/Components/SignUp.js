@@ -1,7 +1,7 @@
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import logo from "./resources/Logo.png";
-import Input from "./styles/Input";
+import logo from "../Assets/Logo.png";
+import Input from "../styles/Input";
 import { useState } from "react";
 import axios from "axios";
 
@@ -30,7 +30,6 @@ export default function SignUp(){
             alert("preencha o email corretamente");
             return;
         }
-        console.log(validateURL(body.image))
         if(!validateURL(body.image)){
             alert("preencha o endereço da imagem corretamente");
             return;
