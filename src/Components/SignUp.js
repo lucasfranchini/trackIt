@@ -1,9 +1,12 @@
+import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../Assets/Logo.png";
 import Input from "../styles/Input";
 import { useState } from "react";
 import axios from "axios";
+import Loader from "react-loader-spinner";
+import {validateEmail,validateURL} from "./Assets/Validate";
 
 export default function SignUp(){
     const [body,setBody] = useState({
@@ -13,44 +16,35 @@ export default function SignUp(){
             password: ""
         }); 
     let history =  useHistory();
-
-    function validateURL(str) {
-        var pattern = new RegExp('^(https?:\\/\\/)?' + // protocol
-            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name
-            '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*' + // port and path
-            '(\\?[;&a-z\\d%_.~+=-]*)?' + // query string
-            '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
-        return !!pattern.test(str);
-    }
-
-    function validateEmail(email) {
-        const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(email);
-      }
-
+    const [load,setLoad] = useState(false);
     function register(){
+        setLoad(true)
         if(!validateEmail(body.email))
         {
             alert("preencha o email corretamente");
+            setLoad(false);
             return;
         }
         if(!validateURL(body.image)){
             alert("preencha o endereço da imagem corretamente");
+            setLoad(false);
             return;
         }
         const promise =  axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",body);
         promise.then(()=>history.push("/"));
-        promise.catch(console.log);
+        promise.catch(()=>{
+            alert("houve algum erro no seu registro, por favor tente novamente");
+            setLoad(false);
+        });
     }
     return (
         <Body>
             <Img src={logo} alt="TrackIt"/>
-            <Input type="text" placeholder="email" onChange={e=>setBody({...body,email: e.target.value})} value={body.email}/>
-            <Input type="password" placeholder="senha" onChange={e=>setBody({...body,password: e.target.value})} value={body.password}/>
-            <Input type="text" placeholder="nome" onChange={e=>setBody({...body,name: e.target.value})} value={body.name}/>
-            <Input type="text" placeholder="foto" onChange={e=>setBody({...body,image: e.target.value})} value={body.image}/>
-            <Button onClick={register}>Cadastrar</Button>
+            <Input type="text" placeholder="email" onChange={e=>setBody({...body,email: e.target.value})} value={body.email} disabled={load}/>
+            <Input type="password" placeholder="senha" onChange={e=>setBody({...body,password: e.target.value})} value={body.password} disabled={load}/>
+            <Input type="text" placeholder="nome" onChange={e=>setBody({...body,name: e.target.value})} value={body.name} disabled={load}/>
+            <Input type="text" placeholder="foto" onChange={e=>setBody({...body,image: e.target.value})} value={body.image} disabled={load}/>
+            <Button disabled={load} onClick={register}>{load ? <Loader type="ThreeDots" color="#FFF" height={50} width={50}/>:"Cadastrar"}</Button>
             <Link to="/">
                 <span>Já tem uma conta? Faça login!</span>
             </Link>
@@ -87,4 +81,5 @@ const Button = styled.button`
     border: none;
     font-size: 20px;
     margin-bottom: 25px;
+    opacity: ${props => props.disabled ? 0.7:1};
 `

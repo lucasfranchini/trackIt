@@ -11,19 +11,25 @@ export default function Login(){
         password: ""
     });
     const history = useHistory();
-
+    const [load,setLoad] = useState(false)
     function signIn(){
+        setLoad(true);
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",body);
         promise.then(()=>history.push("/habitos"));
-        promise.catch(console.log);
+        promise.catch((e)=>{
+            console.log(e.response.status);
+            if(e.response.status === 401) alert("Usuario ou senha invalidos, por favor tente novamente");
+            else alert("Houve algum erro ao tentar entrar, por favor tente novamente");
+            setLoad(false);
+        });
     }
     
     return (
         <Body>
             <Img src={logo} alt="TrackIt"/>
-            <Input type="text" placeholder="email" onChange={e=>setBody({...body,email: e.target.value})} value={body.email}/>
-            <Input type="password" placeholder="senha" onChange={e=>setBody({...body,password: e.target.value})} value={body.password}/>
-            <Button onClick={signIn}>Entrar</Button>
+            <Input type="text" placeholder="email" onChange={e=>setBody({...body,email: e.target.value})} value={body.email} disabled={load}/>
+            <Input type="password" placeholder="senha" onChange={e=>setBody({...body,password: e.target.value})} value={body.password} disabled={load}/>
+            <Button disabled={load} onClick={signIn}>Entrar</Button>
             <Link to="/cadastro">
                 <span>Não tem uma conta? Cadastre-se!</span>
             </Link>
@@ -60,4 +66,5 @@ const Button = styled.button`
     border: none;
     font-size: 20px;
     margin-bottom: 25px;
+    opacity: ${props => props.disabled ? 0.7:1};
 `
