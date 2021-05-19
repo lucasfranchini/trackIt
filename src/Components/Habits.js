@@ -25,7 +25,7 @@ export default function Habits(){
                 <span>Meus hábitos</span>
                 <Button onClick={()=>setNewHabit(true)}>+</Button>
             </Titulo>
-            {newHabit && <NewHabit/>}
+            {newHabit && <NewHabit setNewHabit={setNewHabit}/>}
             {user.habits.length===0 && <div>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</div>}
         </Body>
     );

@@ -14,7 +14,8 @@ export default function Login(){
     const history = useHistory();
     const [load,setLoad] = useState(false);
     const {setUser} = useContext(UserContext)
-    function signIn(){
+    function signIn(e){
+        e.preventDefault();
         setLoad(true);
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",body);
         promise.then(answer=>{
@@ -32,9 +33,11 @@ export default function Login(){
     return (
         <Body>
             <Img src={logo} alt="TrackIt"/>
-            <Input type="text" placeholder="email" onChange={e=>setBody({...body,email: e.target.value})} value={body.email} disabled={load}/>
-            <Input type="password" placeholder="senha" onChange={e=>setBody({...body,password: e.target.value})} value={body.password} disabled={load}/>
-            <Button disabled={load} onClick={signIn}>Entrar</Button>
+            <form onSubmit={signIn}>
+                <Input type="text" placeholder="email" onChange={e=>setBody({...body,email: e.target.value})} value={body.email} disabled={load} requised/>
+                <Input type="password" placeholder="senha" onChange={e=>setBody({...body,password: e.target.value})} value={body.password} disabled={load} required/>
+                <Button disabled={load} >Entrar</Button>
+            </form>
             <Link to="/cadastro">
                 <span>Não tem uma conta? Cadastre-se!</span>
             </Link>

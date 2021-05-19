@@ -6,7 +6,6 @@ import Input from "../styles/Input";
 import { useState } from "react";
 import axios from "axios";
 import Loader from "react-loader-spinner";
-import {validateEmail,validateURL} from "./Resoruces/Validate";
 
 export default function SignUp(){
     const [body,setBody] = useState({
@@ -17,19 +16,9 @@ export default function SignUp(){
         }); 
     let history =  useHistory();
     const [load,setLoad] = useState(false);
-    function register(){
+    function register(e){
+        e.preventDefault();
         setLoad(true)
-        if(!validateEmail(body.email))
-        {
-            alert("preencha o email corretamente");
-            setLoad(false);
-            return;
-        }
-        if(!validateURL(body.image)){
-            alert("preencha o endereço da imagem corretamente");
-            setLoad(false);
-            return;
-        }
         const promise =  axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",body);
         promise.then(()=>history.push("/"));
         promise.catch(()=>{
@@ -40,11 +29,13 @@ export default function SignUp(){
     return (
         <Body>
             <Img src={logo} alt="TrackIt"/>
-            <Input type="text" placeholder="email" onChange={e=>setBody({...body,email: e.target.value})} value={body.email} disabled={load}/>
-            <Input type="password" placeholder="senha" onChange={e=>setBody({...body,password: e.target.value})} value={body.password} disabled={load}/>
-            <Input type="text" placeholder="nome" onChange={e=>setBody({...body,name: e.target.value})} value={body.name} disabled={load}/>
-            <Input type="text" placeholder="foto" onChange={e=>setBody({...body,image: e.target.value})} value={body.image} disabled={load}/>
-            <Button disabled={load} onClick={register}>{load ? <Loader type="ThreeDots" color="#FFF" height={50} width={50}/>:"Cadastrar"}</Button>
+            <form onSubmit={register}>
+                <Input type="email" placeholder="email" onChange={e=>setBody({...body,email: e.target.value})} value={body.email} disabled={load} required/>
+                <Input type="password" placeholder="senha" onChange={e=>setBody({...body,password: e.target.value})} value={body.password} disabled={load} required/>
+                <Input type="text" placeholder="nome" onChange={e=>setBody({...body,name: e.target.value})} value={body.name} disabled={load} required/>
+                <Input type="url" placeholder="foto" onChange={e=>setBody({...body,image: e.target.value})} value={body.image} disabled={load} required/>
+                <Button disabled={load}>{load ? <Loader type="ThreeDots" color="#FFF" height={50} width={50}/>:"Cadastrar"}</Button>
+            </form>
             <Link to="/">
                 <span>Já tem uma conta? Faça login!</span>
             </Link>
