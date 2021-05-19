@@ -2,21 +2,23 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
+import Habit from "./Habit";
 import NewHabit from "./NewHabit";
 
 export default function Habits(){
-    const {user,setUser} = useContext(UserContext);
+    const {user} = useContext(UserContext);
     const [newHabit,setNewHabit] = useState(false);
-
+    const [habits,setHabits] = useState([])
+    const token = user===null ? "":user.token;
     useEffect(()=>{
-        if(user !== null){
-        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",{headers:{Authorization: `Bearer ${user.token}`}})
-        promise.then(answer=>setUser({...user,habits:answer.data}))
-        promise.catch((e)=>console.log(e.reponse));
-    }},[]); // eslint-disable-line react-hooks/exhaustive-deps
-
+        if(token !== ""){
+            const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",{headers:{Authorization: `Bearer ${token}`}})
+            promise.then(answer=>setHabits(answer.data));
+            promise.catch((e)=>console.log(e.response));
+        }
+    },[token,setHabits]);
     if(user===null) return null;
-    if(user.habits===undefined) user.habits = [];
+    console.log(habits);
     return (
         <Body>
             <Titulo>
@@ -24,7 +26,8 @@ export default function Habits(){
                 <Button onClick={()=>setNewHabit(true)}>+</Button>
             </Titulo>
             {newHabit && <NewHabit setNewHabit={setNewHabit}/>}
-            {user.habits.length===0 && <div>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</div>}
+            { habits.length===0 && <div>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</div>}
+            { habits.length!==0 && habits.map(habit=><Habit key={habit.id}/>)}
         </Body>
     );
 }
