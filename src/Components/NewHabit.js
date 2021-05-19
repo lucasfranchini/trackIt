@@ -1,5 +1,7 @@
-import { useState } from "react";
+import axios from "axios";
+import { useContext, useState } from "react";
 import styled from "styled-components";
+import UserContext from "../contexts/UserContext";
 import Input from "../styles/Input";
 import Week from "./Week";
 
@@ -8,13 +10,19 @@ export default function NewHabit({setNewHabit}){
         name: "",
         days:[]
     });
+    const {user,setUser} = useContext(UserContext);
+    function createHabit(){
+        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",habit,{headers:{Authorization: `Bearer ${user.token}`}});
+        promise.then(answer=>setUser({...user,habits: [...user.habits,answer.data]}));
+        promise.catch(console.log);
+    }
     return (
         <Body>
             <Input placeholder="nome do hábito" type="email" value={habit.name} onChange={e=>setHabit({...habit,name: e.target.value})}/>
             <Week habit={habit} setHabit={setHabit}/>
             <Buttons>
                 <Cancelar onClick={()=>setNewHabit(false)}>Cancelar</Cancelar>
-                <Salvar>Salvar</Salvar>
+                <Salvar onClick={createHabit}>Salvar</Salvar>
             </Buttons>
         </Body>
     );

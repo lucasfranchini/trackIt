@@ -17,8 +17,6 @@ export default function Habits(){
 
     if(user===null) return null;
     if(user.habits===undefined) user.habits = [];
-
-    
     return (
         <Body>
             <Titulo>
