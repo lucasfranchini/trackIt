@@ -6,7 +6,7 @@ import UserContext from "../contexts/UserContext";
 export default function Header(){
     const {user} = useContext(UserContext);
     const location = useLocation();
-    if(location.pathname==="/" || location.pathname==="/cadastro") return (<></>);
+    if(location.pathname==="/" || location.pathname==="/cadastro") return null;
     
     return(
         <Body>

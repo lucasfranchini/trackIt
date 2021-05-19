@@ -50,6 +50,7 @@ table {
 *{
     box-sizing: border-box;
     font-family: 'Lexend Deca', sans-serif;
+	word-break: break-word;
 }
 input:focus{
     outline-width: 0;
