@@ -19,7 +19,7 @@ export default function NewHabit({setNewHabit}){
     return (
         <Body>
             <Input placeholder="nome do hábito" type="email" value={habit.name} onChange={e=>setHabit({...habit,name: e.target.value})}/>
-            <Week habit={habit} setHabit={setHabit}/>
+            <Week habit={habit} setHabit={setHabit} changeable={true}/>
             <Buttons>
                 <Cancelar onClick={()=>setNewHabit(false)}>Cancelar</Cancelar>
                 <Salvar onClick={createHabit}>Salvar</Salvar>

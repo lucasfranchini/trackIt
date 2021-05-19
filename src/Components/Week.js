@@ -1,28 +1,28 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function Week({habit,setHabit}){
+export default function Week({habit,setHabit,changeable}){
     const weekdays = ['D','S','T','Q','Q','S','S'];
     const [selects,setSelects] =useState([false,false,false,false,false,false,false]);
     habit.days.forEach((d)=>selects[d]=true);   
 
     function changeSelect(i){
-        if(selects[i]===true) {
-            selects[i]=false;
-            setSelects([...selects]);
-            habit.days =habit.days.filter((d)=> d!==i);
-            setHabit({...habit});
-            
+        if(changeable){
+            if(selects[i]===true) {
+                selects[i]=false;
+                setSelects([...selects]);
+                habit.days =habit.days.filter((d)=> d!==i);
+                setHabit({...habit});
+                
+            }
+            else if(selects[i]===false) {
+                selects[i]=true;
+                setSelects([...selects]);
+                habit.days.push(i);
+                setHabit({...habit});
+            }
         }
-        else if(selects[i]===false) {
-            selects[i]=true;
-            console.log(selects);
-            setSelects([...selects]);
-            habit.days.push(i);
-            setHabit({...habit});
-        }
-    };
-    console.log(habit.days);
+    }
     return (
         <Body>
             {weekdays.map((d,i)=><Day key={i} select={selects[i]} onClick={()=>changeSelect(i)}>{d}</Day>)}

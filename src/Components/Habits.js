@@ -27,7 +27,7 @@ export default function Habits(){
             </Titulo>
             {newHabit && <NewHabit setNewHabit={setNewHabit}/>}
             { habits.length===0 && <div>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</div>}
-            { habits.length!==0 && habits.map(habit=><Habit key={habit.id}/>)}
+            { habits.length!==0 && habits.map(habit=><Habit key={habit.id} habit={habit}/>)}
         </Body>
     );
 }
