@@ -1,12 +1,18 @@
+import { useState } from "react";
 import styled from "styled-components";
 import Input from "../styles/Input";
 import Week from "./Week";
 
 export default function NewHabit(){
+    const [habit,setHabit] = useState({
+        name: "",
+        days:[]
+    });
+    
     return (
         <Body>
             <Input placeholder="nome do hábito" type="text"/>
-            <Week days={[1,3]}/>
+            <Week habit={habit} setHabit={setHabit}/>
         </Body>
     );
 }

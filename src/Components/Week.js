@@ -1,12 +1,30 @@
+import { useState } from "react";
 import styled from "styled-components";
 
-export default function Week({days}){
+export default function Week({habit,setHabit}){
     const weekdays = ['D','S','T','Q','Q','S','S'];
-    const selects =[false,false,false,false,false,false,false];
-    days.forEach((d)=>selects[d]=true);   
+    const [selects,setSelects] =useState([false,false,false,false,false,false,false]);
+    habit.days.forEach((d)=>selects[d-1]=true);   
+
+    function changeSelect(i){
+        if(selects[i]===true) {
+            selects[i]=false;
+            setSelects([...selects]);
+            habit.days =habit.days.filter((d)=> d-1!==i);
+            setHabit({...habit});
+            
+        }
+        else if(selects[i]===false) {
+            selects[i]=true;
+            setSelects([...selects]);
+            habit.days.push(i+1);
+            setHabit({...habit});
+        }
+    };
+    console.log(habit.days);
     return (
         <Body>
-            {weekdays.map((d,i)=><Day key={i} select={selects[i]}>{d}</Day>)}
+            {weekdays.map((d,i)=><Day key={i} select={selects[i]} onClick={()=>changeSelect(i)}>{d}</Day>)}
         </Body>
     );
 }
