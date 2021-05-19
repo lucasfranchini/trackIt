@@ -29,6 +29,7 @@ const Body = styled.div`
     font-family:playball;
     color:#fff;
     padding: 0 18px;
+    z-index: 1;
 `
 const Img =  styled.img`
     width:51px;

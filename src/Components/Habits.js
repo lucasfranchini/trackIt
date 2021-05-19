@@ -10,6 +10,7 @@ export default function Habits(){
     const [newHabit,setNewHabit] = useState(false);
     const [habits,setHabits] = useState([])
     const token = user===null ? "":user.token;
+
     useEffect(()=>{
         if(token !== ""){
             const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",{headers:{Authorization: `Bearer ${token}`}})
@@ -17,8 +18,14 @@ export default function Habits(){
             promise.catch((e)=>console.log(e.response));
         }
     },[token,setHabits]);
+    
     if(user===null) return null;
-    console.log(habits);
+
+    function deleteHabit(habit){
+        const promise = 
+        setHabits(habits.filter(h=>habit.id!==h.id));
+    }
+
     return (
         <Body>
             <Titulo>
@@ -27,7 +34,7 @@ export default function Habits(){
             </Titulo>
             {newHabit && <NewHabit setNewHabit={setNewHabit}/>}
             { habits.length===0 && <div>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</div>}
-            { habits.length!==0 && habits.map(habit=><Habit key={habit.id} habit={habit}/>)}
+            { habits.length!==0 && habits.map(habit=><Habit key={habit.id} habit={habit} deleteHabit={deleteHabit}/>)}
         </Body>
     );
 }
