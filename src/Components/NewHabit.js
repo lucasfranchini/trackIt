@@ -3,7 +3,7 @@ import styled from "styled-components";
 import Input from "../styles/Input";
 import Week from "./Week";
 
-export default function NewHabit(){
+export default function NewHabit({setNewHabit}){
     const [habit,setHabit] = useState({
         name: "",
         days:[]
@@ -13,7 +13,7 @@ export default function NewHabit(){
             <Input placeholder="nome do hábito" type="email" value={habit.name} onChange={e=>setHabit({...habit,name: e.target.value})}/>
             <Week habit={habit} setHabit={setHabit}/>
             <Buttons>
-                <Cancelar>Cancelar</Cancelar>
+                <Cancelar onClick={()=>setNewHabit(false)}>Cancelar</Cancelar>
                 <Salvar>Salvar</Salvar>
             </Buttons>
         </Body>
@@ -24,6 +24,7 @@ const Body =styled.div`
     width:100%;
     background:#fff;
     padding:18px;
+    margin-bottom:30px;
 `
 const Buttons = styled.div`
     width:100%;

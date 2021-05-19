@@ -34,7 +34,7 @@ export default function SignUp(){
                 <Input type="password" placeholder="senha" onChange={e=>setBody({...body,password: e.target.value})} value={body.password} disabled={load} required/>
                 <Input type="text" placeholder="nome" onChange={e=>setBody({...body,name: e.target.value})} value={body.name} disabled={load} required/>
                 <Input type="url" placeholder="foto" onChange={e=>setBody({...body,image: e.target.value})} value={body.image} disabled={load} required/>
-                <Button disabled={load}>{load ? <Loader type="ThreeDots" color="#FFF" height={50} width={50}/>:"Cadastrar"}</Button>
+                <Button disabled={load} type="submit">{load ? <Loader type="ThreeDots" color="#FFF" height={50} width={50}/>:"Cadastrar"}</Button>
             </form>
             <Link to="/">
                 <span>Já tem uma conta? Faça login!</span>
