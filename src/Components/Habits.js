@@ -1,25 +1,31 @@
 import axios from "axios";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
+import NewHabit from "./NewHabit";
 
 export default function Habits(){
     const {user,setUser} = useContext(UserContext);
+    const [newHabit,setNewHabit] = useState(false);
+
     useEffect(()=>{
         if(user !== null){
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",{headers:{Authorization: `Bearer ${user.token}`}})
         promise.then(answer=>setUser({...user,habits:answer.data}))
         promise.catch((e)=>console.log(e.reponse));
     }},[]); // eslint-disable-line react-hooks/exhaustive-deps
+
     if(user===null) return null;
     if(user.habits===undefined) user.habits = [];
-    console.log(user.habits);
+
+    
     return (
         <Body>
             <Titulo>
                 <span>Meus hábitos</span>
-                <Button>+</Button>
+                <Button onClick={()=>setNewHabit(true)}>+</Button>
             </Titulo>
+            {newHabit && <NewHabit/>}
             {user.habits.length===0 && <div>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</div>}
         </Body>
     );
