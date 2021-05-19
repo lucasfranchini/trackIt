@@ -2,8 +2,9 @@ import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../Assets/Logo.png";
 import Input from "../styles/Input";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import axios from "axios";
+import UserContext from "../contexts/UserContext";
 
 export default function Login(){
     const [body,setBody] = useState({
@@ -11,11 +12,15 @@ export default function Login(){
         password: ""
     });
     const history = useHistory();
-    const [load,setLoad] = useState(false)
+    const [load,setLoad] = useState(false);
+    const {setUser} = useContext(UserContext)
     function signIn(){
         setLoad(true);
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",body);
-        promise.then(()=>history.push("/habitos"));
+        promise.then(answer=>{
+            history.push("/habitos");
+            setUser(answer.data);
+        });
         promise.catch((e)=>{
             console.log(e.response.status);
             if(e.response.status === 401) alert("Usuario ou senha invalidos, por favor tente novamente");

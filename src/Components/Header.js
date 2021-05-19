@@ -1,13 +1,17 @@
+import { useContext } from "react";
 import { useLocation } from "react-router";
 import styled from "styled-components";
+import UserContext from "../contexts/UserContext";
 
 export default function Header(){
-    let location = useLocation();
+    const {user} = useContext(UserContext);
+    const location = useLocation();
     if(location.pathname==="/" || location.pathname==="/cadastro") return (<></>);
+    
     return(
         <Body>
             <span>TrackIt</span>
-            <Img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Beluga_oceanografic.jpg/280px-Beluga_oceanografic.jpg" alt="User"/>
+            <Img src={user && user.image} alt="User"/>
         </Body>
     );
 }
