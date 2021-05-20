@@ -5,6 +5,8 @@ import UserContext from "../contexts/UserContext";
 import Habit from "./Habit";
 import NewHabit from "./NewHabit";
 import TodayContext from "../contexts/TodayContext";
+import Body from "../styles/Body";
+import Title from "../styles/Title";
 
 export default function Habits(){
     const {user} = useContext(UserContext);
@@ -53,10 +55,10 @@ export default function Habits(){
     return (
 
         <Body>
-            <Titulo>
+            <Title>
                 <span>Meus hábitos</span>
                 <Button onClick={()=>setNewHabit(true)}>+</Button>
-            </Titulo>
+            </Title>
             {newHabit && <NewHabit addHabit={addHabit} setNewHabit={setNewHabit} habit={habit} setHabit={setHabit}/>}
             { habits.length===0 && <div>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</div>}
             { habits.length!==0 && habits.map(habit=><Habit key={habit.id} habit={habit} deleteHabit={deleteHabit}/>)}
@@ -64,27 +66,7 @@ export default function Habits(){
     );
 }
 
-const Body = styled.div`
-    width:100%;
-    height:100vh;
-    padding:70px 18px;
-    background:#e5e5e5;
-    color: #666666;
-    font-size:18px;
-    line-height:23px;
-    overflow: scroll;
-`
-const Titulo = styled.div`
-    width:100%;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding-top:22px;
-    font-size: 23px;
-    line-height: 29px;
-    color:#126BA5;
-    margin-bottom:28px;
-`
+
 const Button = styled.button`
     width: 40px;
     height: 35px;
