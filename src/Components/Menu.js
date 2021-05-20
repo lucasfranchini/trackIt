@@ -6,8 +6,10 @@ import 'react-circular-progressbar/dist/styles.css';
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
+import TodayContext from "../contexts/TodayContext";
 
-export default function Menu({todayHabits,setTodayHabits}){
+export default function Menu(){
+    const {today,setToday} =useContext(TodayContext);
     const location = useLocation();
     const {user} = useContext(UserContext);
     const token = user===null ? "":user.token;
@@ -15,26 +17,24 @@ export default function Menu({todayHabits,setTodayHabits}){
     useEffect(()=>{
         if(token!==""){
             const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",{headers:{Authorization: `Bearer ${token}`}});
-            promise.then(answer=>setTodayHabits(answer.data));
+            promise.then(answer=>setToday(answer.data));
             promise.catch(console.log);
         }   
-    },[token,setTodayHabits]);
+    },[token,setToday]);
     useEffect(()=>{
-        for(let i=0; i<todayHabits.length;i++){
+        for(let i=0; i<today.length;i++){
             let newpercentage=0;
-            if(todayHabits[i].done===false){
-                newpercentage += 100/todayHabits.length;
+            if(today[i].done){
+                newpercentage += 100/today.length;
             }
-            if(i+1===todayHabits.length){
+            if(i+1===today.length){
                 setPercentage(newpercentage);
             }
         }
-        if(todayHabits.length===0){
+        if(today.length===0){
             setPercentage(100);
         }
-    },[todayHabits]);
-    
-    console.log(todayHabits);
+    },[today]);
     if(location.pathname==="/" || location.pathname==="/cadastro") return null;
     return (
         <Body>

@@ -4,14 +4,14 @@ import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
 import Habit from "./Habit";
 import NewHabit from "./NewHabit";
-import Menu from "./Menu";
+import TodayContext from "../contexts/TodayContext";
 
 export default function Habits(){
     const {user} = useContext(UserContext);
     const [newHabit,setNewHabit] = useState(false);
     const [habits,setHabits] = useState([])
     const token = user===null ? "":user.token;
-    const [todayHabits,setTodayHabits] = useState([]);
+    const {today,setToday} = useContext(TodayContext);
     const [habit,setHabit] = useState({
         name: "",
         days:[]
@@ -32,7 +32,7 @@ export default function Habits(){
             const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}`,{headers:{Authorization: `Bearer ${token}`}});
             promise.then(()=>{
                 setHabits(habits.filter(h=>habit.id!==h.id));
-                setTodayHabits(todayHabits.filter(h=>habit.id!==h.id));
+                setToday(today.filter(h=>habit.id!==h.id));
             });
             promise.catch(console.log);
         }
@@ -46,7 +46,7 @@ export default function Habits(){
             days:[]
         });
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",{headers:{Authorization: `Bearer ${token}`}});
-        promise.then(answer=>setTodayHabits(answer.data));
+        promise.then(answer=>setToday(answer.data));
         promise.catch(console.log);
     }
 
@@ -60,7 +60,6 @@ export default function Habits(){
             {newHabit && <NewHabit addHabit={addHabit} setNewHabit={setNewHabit} habit={habit} setHabit={setHabit}/>}
             { habits.length===0 && <div>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</div>}
             { habits.length!==0 && habits.map(habit=><Habit key={habit.id} habit={habit} deleteHabit={deleteHabit}/>)}
-            <Menu todayHabits={todayHabits} setTodayHabits={setTodayHabits}/>
         </Body>
     );
 }
