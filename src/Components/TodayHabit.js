@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { CheckmarkOutline } from 'react-ionicons';
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import TodayContext from "../contexts/TodayContext";
 import axios from "axios";
 import UserContext from "../contexts/UserContext";
