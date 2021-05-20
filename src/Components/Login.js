@@ -2,7 +2,7 @@ import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import logo from "../Assets/Logo.png";
 import Input from "../styles/Input";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import UserContext from "../contexts/UserContext";
 import Loader from "react-loader-spinner";
@@ -14,7 +14,12 @@ export default function Login(){
     });
     const history = useHistory();
     const [load,setLoad] = useState(false);
-    const {setUser} = useContext(UserContext)
+    const {user,setUser} = useContext(UserContext)
+    useEffect(()=>{
+        if(user!==null){
+            history.push('/habitos');
+        }
+    },[user,history]);
     function signIn(e){
         e.preventDefault();
         setLoad(true);
@@ -22,6 +27,7 @@ export default function Login(){
         promise.then(answer=>{
             history.push("/habitos");
             setUser(answer.data);
+            localStorage.setItem('user',JSON.stringify(answer.data));
         });
         promise.catch((e)=>{
             console.log(e.response.status);
