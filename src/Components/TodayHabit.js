@@ -40,7 +40,6 @@ export default function TodayHabit({habit}){
             })
         }
     }
-    console.log(habit)
     return(
         <Body>
             <Texts>
