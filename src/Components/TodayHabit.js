@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { CheckmarkOutline } from 'react-ionicons';
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import TodayContext from "../contexts/TodayContext";
 import axios from "axios";
 import UserContext from "../contexts/UserContext";
@@ -8,7 +8,6 @@ import UserContext from "../contexts/UserContext";
 export default function TodayHabit({habit}){
     const {today,setToday} = useContext(TodayContext);
     const {user} =useContext(UserContext);
-    const [oldHighestSequence] = useState(habit.highestSequence);
     function check(){
         if(habit.done){
             const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/uncheck`,{},{headers:{Authorization: `Bearer ${user.token}`}});
