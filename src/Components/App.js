@@ -5,7 +5,6 @@ import Login from "./Login";
 import SignUp from "./SignUp";
 import Habits from "./Habits";
 import Header from "./Header";
-import Menu from "./Menu";
 import UserContext from "../contexts/UserContext";
 
 export default function App() {
@@ -25,7 +24,6 @@ export default function App() {
             <Habits/>
           </Route>
         </Switch>
-        <Menu/>
       </BrowserRouter>
     </UserContext.Provider>
   );

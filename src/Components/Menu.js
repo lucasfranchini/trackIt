@@ -3,11 +3,39 @@ import { useLocation } from "react-router";
 import styled from "styled-components";
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
+import { useContext, useEffect, useState } from "react";
+import UserContext from "../contexts/UserContext";
+import axios from "axios";
 
-export default function Menu(){
+export default function Menu({todayHabits,setTodayHabits}){
+    const location = useLocation();
+    const {user} = useContext(UserContext);
+    const token = user===null ? "":user.token;
+    const [percentage,setPercentage] = useState(100);
+    useEffect(()=>{
+        if(token!==""){
+            const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",{headers:{Authorization: `Bearer ${token}`}});
+            promise.then(answer=>setTodayHabits(answer.data));
+            promise.catch(console.log);
+        }   
+    },[token,setTodayHabits]);
+    useEffect(()=>{
+        for(let i=0; i<todayHabits.length;i++){
+            let newpercentage=0;
+            if(todayHabits[i].done===false){
+                newpercentage += 100/todayHabits.length;
+            }
+            if(i+1===todayHabits.length){
+                setPercentage(newpercentage);
+            }
+        }
+        if(todayHabits.length===0){
+            setPercentage(100);
+        }
+    },[todayHabits]);
     
-    let location = useLocation();
-    if(location.pathname==="/" || location.pathname==="/cadastro") return (<></>);
+    console.log(todayHabits);
+    if(location.pathname==="/" || location.pathname==="/cadastro") return null;
     return (
         <Body>
             <Content/>
@@ -17,7 +45,7 @@ export default function Menu(){
             <Link to="/hoje">
                 <Circular>
                     <CircularProgressbar 
-                        value={50} 
+                        value={percentage} 
                         text={`Hoje`} 
                         styles={buildStyles({
                             pathColor:'#fff',
@@ -29,7 +57,7 @@ export default function Menu(){
                 </Circular>
             </Link>
             <Link to="/historico">
-                <Button>Histórico</Button>
+                <History>Histórico</History>
             </Link>
         </Body>
     );
@@ -73,5 +101,18 @@ const Button = styled.button`
     text-align:center;
     border:none;
     background:inherit;
-    margin-top:30px
+    position:absolute;
+    top:50px;
+    left:0;
+`
+const History = styled.button`
+    color:#52B6FF;
+    font-size:18px;
+    line-height:23px;
+    text-align:center;
+    border:none;
+    background:inherit;
+    position:absolute;
+    top:50px;
+    right:0;
 `
