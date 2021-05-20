@@ -3,7 +3,6 @@ import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import TodayContext from "../contexts/TodayContext";
 import Body from "../styles/Body";
-import Title from "../styles/Title";
 import calculatePercentage from "./calculatePercentage";
 
 export default function Today(){
@@ -20,11 +19,21 @@ export default function Today(){
         <Body>
             <Title>
                 <span>{day}</span>
-                <Subtitle>{percentage}</Subtitle>
+                <Subtitle percentage={percentage}>{percentage===0?'Nenhum hábito concluído ainda':`${percentage}% dos hábitos concluídos`}</Subtitle>
             </Title>
         </Body>
     )
 }
-
-const Subtitle = styled.span`
+const Title = styled.div`
+    width:100%;
+    padding-top:22px;
+    font-size: 23px;
+    line-height: 29px;
+    color:#126BA5;
+    margin-bottom:28px;
+`
+const Subtitle = styled.div`
+    font-size:18px;
+    line-height:23px;
+    color: ${props=> props.percentage===0?'#bababa':'#8FC549'} ;
 `

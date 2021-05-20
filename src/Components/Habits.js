@@ -6,7 +6,6 @@ import Habit from "./Habit";
 import NewHabit from "./NewHabit";
 import TodayContext from "../contexts/TodayContext";
 import Body from "../styles/Body";
-import Title from "../styles/Title";
 
 export default function Habits(){
     const {user} = useContext(UserContext);
@@ -65,8 +64,17 @@ export default function Habits(){
         </Body>
     );
 }
-
-
+const Title = styled.div`
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-top:22px;
+    font-size: 23px;
+    line-height: 29px;
+    color:#126BA5;
+    margin-bottom:28px;
+`
 const Button = styled.button`
     width: 40px;
     height: 35px;
