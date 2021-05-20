@@ -5,6 +5,7 @@ import Input from "../styles/Input";
 import { useContext, useState } from "react";
 import axios from "axios";
 import UserContext from "../contexts/UserContext";
+import Loader from "react-loader-spinner";
 
 export default function Login(){
     const [body,setBody] = useState({
@@ -36,7 +37,7 @@ export default function Login(){
             <form onSubmit={signIn}>
                 <Input type="text" placeholder="email" onChange={e=>setBody({...body,email: e.target.value})} value={body.email} disabled={load} requised/>
                 <Input type="password" placeholder="senha" onChange={e=>setBody({...body,password: e.target.value})} value={body.password} disabled={load} required/>
-                <Button disabled={load}  type="submit">Entrar</Button>
+                <Button disabled={load}  type="submit">{load ? <Loader type="ThreeDots" color="#FFF" height={50} width={50}/>:"Entrar"}</Button>
             </form>
             <Link to="/cadastro">
                 <span>Não tem uma conta? Cadastre-se!</span>

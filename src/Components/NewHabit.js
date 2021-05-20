@@ -4,25 +4,31 @@ import styled from "styled-components";
 import UserContext from "../contexts/UserContext";
 import Input from "../styles/Input";
 import Week from "./Week";
+import Loader from "react-loader-spinner";
 
-export default function NewHabit({setNewHabit}){
-    const [habit,setHabit] = useState({
-        name: "",
-        days:[]
-    });
-    const {user,setUser} = useContext(UserContext);
+export default function NewHabit({addHabit,setNewHabit,setHabit,habit}){
+    const {user} = useContext(UserContext);
+    const [load,setLoad] = useState(false);
     function createHabit(){
+        setLoad(true);
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",habit,{headers:{Authorization: `Bearer ${user.token}`}});
-        promise.then(answer=>setUser({...user,habits: [...user.habits,answer.data]}));
-        promise.catch(console.log);
+        promise.then(answer=>addHabit(answer.data));
+        promise.catch(()=>{
+            setLoad(false);
+            alert("Houve um erro ao tentar criar um habito");
+        });
+    }
+    function cancel(){
+        setNewHabit(false);
+        setHabit({...habit});
     }
     return (
         <Body>
-            <Input placeholder="nome do hábito" type="email" value={habit.name} onChange={e=>setHabit({...habit,name: e.target.value})}/>
+            <Input placeholder="nome do hábito" type="email" value={habit.name} onChange={e=>setHabit({...habit,name: e.target.value})} disabled={load}/>
             <Week habit={habit} setHabit={setHabit} changeable={true}/>
-            <Buttons>
-                <Cancelar onClick={()=>setNewHabit(false)}>Cancelar</Cancelar>
-                <Salvar onClick={createHabit}>Salvar</Salvar>
+            <Buttons >
+                <Cancelar disabled={load} onClick={cancel}>Cancelar</Cancelar>
+                <Salvar disabled={load} onClick={createHabit}>{load ? <Loader type="ThreeDots" color="#FFF" height={50} width={50} radius={0}/>:"Salvar"}</Salvar>
             </Buttons>
         </Body>
     );
@@ -50,6 +56,7 @@ const Cancelar = styled.button`
     border:none;
     background:inherit;
     margin-right:23px;
+    opacity: ${props => props.disabled ? 0.7:1};
 `
 
 const Salvar = styled.button`
@@ -61,5 +68,9 @@ const Salvar = styled.button`
     border: none;
     font-size:16px;
     line-height:20px;
+    text-align:center;
+    display:flex;
+    justify-content:center;
+    align-items:center;
     opacity: ${props => props.disabled ? 0.7:1};
 `
