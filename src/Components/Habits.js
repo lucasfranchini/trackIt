@@ -5,7 +5,7 @@ import UserContext from "../contexts/UserContext";
 import Habit from "./Habit";
 import NewHabit from "./NewHabit";
 import TodayContext from "../contexts/TodayContext";
-import Body from "../styles/Body";
+import Body from "../styles/PageBody";
 
 export default function Habits(){
     const {user} = useContext(UserContext);
@@ -24,7 +24,7 @@ export default function Habits(){
             promise.then(answer=>setHabits(answer.data));
             promise.catch((e)=>console.log(e.response));
         }
-    },[token,setHabits]);
+    },[token]);
 
     if(user===null) return null;
 

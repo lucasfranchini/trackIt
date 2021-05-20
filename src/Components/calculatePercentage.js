@@ -1,6 +1,7 @@
 export default function calculatePercentage(setPercentage,today){
+    let newpercentage=0;
     for(let i=0; i<today.length;i++){
-        let newpercentage=0;
+        
         if(today[i].done){
             newpercentage += 100/today.length;
         }
@@ -10,5 +11,5 @@ export default function calculatePercentage(setPercentage,today){
     }
     if(today.length===0){
         setPercentage(100);
-    }
+    }  
 }
