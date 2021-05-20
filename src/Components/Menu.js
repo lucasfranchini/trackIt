@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../contexts/UserContext";
 import axios from "axios";
 import TodayContext from "../contexts/TodayContext";
+import calculatePercentage from "./calculatePercentage";
 
 export default function Menu(){
     const {today,setToday} =useContext(TodayContext);
@@ -21,20 +22,7 @@ export default function Menu(){
             promise.catch(console.log);
         }   
     },[token,setToday]);
-    useEffect(()=>{
-        for(let i=0; i<today.length;i++){
-            let newpercentage=0;
-            if(today[i].done){
-                newpercentage += 100/today.length;
-            }
-            if(i+1===today.length){
-                setPercentage(newpercentage);
-            }
-        }
-        if(today.length===0){
-            setPercentage(100);
-        }
-    },[today]);
+    useEffect(()=>{calculatePercentage(setPercentage,today)},[today]);
     if(location.pathname==="/" || location.pathname==="/cadastro") return null;
     return (
         <Body>
