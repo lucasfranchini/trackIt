@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { CheckmarkOutline } from 'react-ionicons';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import TodayContext from "../contexts/TodayContext";
 import axios from "axios";
 import UserContext from "../contexts/UserContext";
@@ -8,33 +8,37 @@ import UserContext from "../contexts/UserContext";
 export default function TodayHabit({habit}){
     const {today,setToday} = useContext(TodayContext);
     const {user} =useContext(UserContext);
+    const [oldHighestSequence] = useState(habit.highestSequence);
     function check(){
         if(habit.done){
             const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/uncheck`,{},{headers:{Authorization: `Bearer ${user.token}`}});
-            promise.then(()=>{
-                habit.done =false;
-                habit.currentSequence --;
-                setToday([...today])
+            promise.then(a=>{
+                const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",{headers:{Authorization: `Bearer ${user.token}`}});
+                promise.then(answer=>setToday(answer.data));
+                promise.catch(console.log);
             })
+            promise.catch(console.log);
             
         }
         else{
             const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/check`,{},{headers:{Authorization: `Bearer ${user.token}`}});
-            promise.then(()=>{
+            promise.then((a)=>{
+                console.log(a)
                 habit.done =true;
                 habit.currentSequence ++;
                 if(habit.currentSequence>habit.highestSequence) habit.highestSequence ++;
                 setToday([...today])
             })
+            promise.catch(console.log);
         }
     }
-    console.log(habit);
+    console.log(oldHighestSequence);
     return(
         <Body>
             <Texts>
                 <Name>{habit.name}</Name>
-                <div>Sequência atual: <Current>{habit.currentSequence}</Current> dias</div>
-                <div>Sequência recorde: <Highest>{habit.highestSequence}</Highest> dias</div>
+                <div>Sequência atual: <Current done={habit.done}>{habit.currentSequence} dias</Current></div>
+                <div>Sequência recorde: <Highest equals={habit.currentSequence===habit.highestSequence && habit.done}>{habit.highestSequence} dias</Highest></div>
             </Texts>
             <Button done={habit.done}>
                 <CheckmarkOutline color={'#ffffff'} height="60px" width="50px" onClick={check} />
@@ -66,7 +70,7 @@ const Current = styled.span`
     color: ${props => props.done ? '#8FC549':'#666666'};
 `
 const Highest = styled.span`
-
+    color: ${props => props.equals ? '#8FC549':'#666666'};
 `
 
 const Button = styled.button`
