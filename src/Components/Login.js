@@ -8,18 +8,18 @@ import UserContext from "../contexts/UserContext";
 import Loader from "react-loader-spinner";
 
 export default function Login(){
-    const [body,setBody] = useState({
-        email: "" ,
-        password: ""
-    });
-    const history = useHistory();
-    const [load,setLoad] = useState(false);
     const {user,setUser} = useContext(UserContext)
+    const history = useHistory();
     useEffect(()=>{
         if(user!==null){
             history.push('/habitos');
         }
     },[user,history]);
+    const [body,setBody] = useState({
+        email: "" ,
+        password: ""
+    });
+    const [load,setLoad] = useState(false);
     function signIn(e){
         e.preventDefault();
         setLoad(true);
