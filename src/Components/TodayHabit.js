@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { CheckmarkOutline } from 'react-ionicons';
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import TodayContext from "../contexts/TodayContext";
 import axios from "axios";
 import UserContext from "../contexts/UserContext";
@@ -8,30 +8,39 @@ import UserContext from "../contexts/UserContext";
 export default function TodayHabit({habit}){
     const {today,setToday} = useContext(TodayContext);
     const {user} =useContext(UserContext);
+    
     function check(){
         if(habit.done){
             const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/uncheck`,{},{headers:{Authorization: `Bearer ${user.token}`}});
-            promise.then(a=>{
-                const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",{headers:{Authorization: `Bearer ${user.token}`}});
-                promise.then(answer=>setToday(answer.data));
-                promise.catch(console.log);
+            promise.then(()=>{
+                habit.done =false;
+                if(habit.currentSequence===habit.highestSequence){
+                    if(habit.oldHighest===undefined){
+                        habit.highestSequence --;
+                    }
+                    else{
+                        habit.highestSequence =habit.oldHighest;
+                    } 
+                } 
+                habit.currentSequence --;
+                setToday([...today])
             })
-            promise.catch(console.log);
             
         }
         else{
             const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/check`,{},{headers:{Authorization: `Bearer ${user.token}`}});
-            promise.then((a)=>{
-                console.log(a)
+            promise.then(()=>{
                 habit.done =true;
                 habit.currentSequence ++;
-                if(habit.currentSequence>habit.highestSequence) habit.highestSequence ++;
+                if(habit.currentSequence>habit.highestSequence) {
+                    habit.oldHighest=habit.highestSequence
+                    habit.highestSequence ++;
+                }
                 setToday([...today])
             })
-            promise.catch(console.log);
         }
     }
-    console.log(oldHighestSequence);
+    console.log(habit)
     return(
         <Body>
             <Texts>
