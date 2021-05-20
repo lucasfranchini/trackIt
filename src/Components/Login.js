@@ -12,7 +12,7 @@ export default function Login(){
     const history = useHistory();
     useEffect(()=>{
         if(user!==null){
-            history.push('/habitos');
+            history.push('/hoje');
         }
     },[user,history]);
     const [body,setBody] = useState({
@@ -25,7 +25,7 @@ export default function Login(){
         setLoad(true);
         const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",body);
         promise.then(answer=>{
-            history.push("/habitos");
+            history.push("/hoje");
             setUser(answer.data);
             localStorage.setItem('user',JSON.stringify(answer.data));
         });
