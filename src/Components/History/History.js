@@ -7,7 +7,7 @@ import { useContext, useEffect, useState } from "react";
 import UserContext from "../../contexts/UserContext";
 import axios from "axios";
 import Day from "./Day";
-import Habit from "../Habits/Habit";
+import Habit from "../Aux/Habit";
 import dayjs from "dayjs";
 
 export default function History(){
@@ -54,4 +54,12 @@ const Title = styled.div`
 `
 const Calendario = styled.div`
     margin-bottom: 10px;
+        button:enabled:focus:hover{
+            background-color: white;
+            color:black;
+        }
+        button:enabled:not(:focus){
+            background-color: white;
+            color:black;
+        }
 `

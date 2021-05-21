@@ -61,6 +61,7 @@ const Body = styled.div`
     align-items:center;
     justify-content:space-between;
     background:transparent;
+    
     a{
         z-index:1;
     }
@@ -91,7 +92,7 @@ const Button = styled.button`
     background:inherit;
     position:absolute;
     top:50px;
-    left:0;
+    left:20px;
 `
 const History = styled.button`
     color:#52B6FF;
@@ -102,5 +103,5 @@ const History = styled.button`
     background:inherit;
     position:absolute;
     top:50px;
-    right:0;
+    right:20px;
 `

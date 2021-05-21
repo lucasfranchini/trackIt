@@ -2,7 +2,7 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
 import UserContext from "../../contexts/UserContext";
-import Habit from "./Habit";
+import Habit from "../Aux/Habit";
 import NewHabit from "./NewHabit";
 import TodayContext from "../../contexts/TodayContext";
 import Body from "../../styles/PageBody";
