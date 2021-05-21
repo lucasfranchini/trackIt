@@ -22,4 +22,7 @@ const Body = styled.span`
     height: 100%;
     padding: 9px;
     border-radius: ${props => props.today?"0":"50%"};
+    @media(max-width:362px){
+        padding: 5px;
+    }
 `
