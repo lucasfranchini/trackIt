@@ -22,19 +22,22 @@ export default function History(){
     },[user.token,setHabits]);
     
     function showHabit(value){
+        let newShownHabits=[];
         habits.forEach(d=>{
             if(d.day===dayjs(value).format('DD/MM/YYYY')){
-                setShownHabits(d.habits);
-                //console.log([d.habits])
+                newShownHabits=d.habits;
             }
         });
+        setShownHabits(newShownHabits);
     }
     
 
     return (
         <Body>
             <Title>Histórico</Title>
-            <Calendar tileClassName="vermeio" onClickDay={value=>showHabit(value)} className="calendar" calendarType="US" locale="pt-br" formatDay={(locale,date)=><Day date={date} habits={habits}/>}/>
+            <Calendario>
+                <Calendar onClickDay={value=>showHabit(value)} className="calendar" calendarType="US" locale="pt-br" formatDay={(locale,date)=><Day date={date} habits={habits}/>}/>
+            </Calendario>
             {shownHabits.map(habit=><Habit key={habit.historyId} habit={habit} deleteHabit={null} done={habit.done} days={[habit.weekDay]}/>)}
         </Body>
     );
@@ -48,4 +51,7 @@ const Title = styled.div`
     line-height: 29px;
     color:#126BA5;
     margin-bottom:28px;   
+`
+const Calendario = styled.div`
+    margin-bottom: 10px;
 `

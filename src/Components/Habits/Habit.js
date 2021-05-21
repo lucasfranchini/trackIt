@@ -20,6 +20,7 @@ const Body =styled.div`
     margin-bottom:10px;
     position: relative;
     border-radius: 5px;
+    color: ${props =>props.done===null? "#666666":"#ffffff"}
     
 `
 const Trash = styled.div`
