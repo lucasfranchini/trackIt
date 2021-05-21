@@ -60,7 +60,7 @@ export default function Habits(){
             </Title>
             {newHabit && <NewHabit addHabit={addHabit} setNewHabit={setNewHabit} habit={habit} setHabit={setHabit}/>}
             { habits.length===0 && <div>Você não tem nenhum hábito cadastrado ainda. Adicione um hábito para começar a trackear!</div>}
-            { habits.length!==0 && habits.map(habit=><Habit key={habit.id} habit={habit} deleteHabit={deleteHabit}/>)}
+            { habits.length!==0 && habits.map(habit=><Habit key={habit.id} habit={habit} deleteHabit={deleteHabit} done={null} days={habit.days}/>)}
         </Body>
     );
 }
