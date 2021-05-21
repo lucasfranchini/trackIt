@@ -1,7 +1,7 @@
 import { useState } from "react";
 import styled from "styled-components";
 
-export default function Week({habit,setHabit,changeable,days}){
+export default function Week({habit,setHabit,changeable,days,done}){
     const weekdays = ['D','S','T','Q','Q','S','S'];
     const [selects,setSelects] =useState([false,false,false,false,false,false,false]);
     days.forEach((d)=>selects[d]=true);   
@@ -12,7 +12,7 @@ export default function Week({habit,setHabit,changeable,days}){
                 selects[i]=false;
                 setSelects([...selects]);
                 days =days.filter((d)=> d!==i);
-                setHabit({...habit});
+                setHabit({...habit,days});
                 
             }
             else if(selects[i]===false) {
@@ -25,7 +25,7 @@ export default function Week({habit,setHabit,changeable,days}){
     }
     return (
         <Body>
-            {weekdays.map((d,i)=><Day key={i} select={selects[i]} onClick={()=>changeSelect(i)}>{d}</Day>)}
+            {weekdays.map((d,i)=><Day key={i} done={done} select={selects[i]} onClick={()=>changeSelect(i)}>{d}</Day>)}
         </Body>
     );
 }
@@ -45,5 +45,5 @@ const Day = styled.div`
     justify-content:center;
     align-items:center;
     color: ${props => props.select===false ? '#DBDBDB':'#ffffff'};
-    background: ${props => props.select===false ? 'inherit':'#CFCFCF'};
+    background: ${props => props.done===null? props.select===false ? '#ffffff':'#CFCFCF':props.done?"#8CC654":"#EA5766"};
 `

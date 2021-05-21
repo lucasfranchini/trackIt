@@ -25,7 +25,7 @@ export default function NewHabit({addHabit,setNewHabit,setHabit,habit}){
     return (
         <Body>
             <Input placeholder="nome do hábito" type="email" value={habit.name} onChange={e=>setHabit({...habit,name: e.target.value})} disabled={load}/>
-            <Week habit={habit} setHabit={setHabit} changeable={true} days={habit.days}/>
+            <Week habit={habit} setHabit={setHabit} changeable={true} days={habit.days} done={null}/>
             <Buttons >
                 <Cancelar disabled={load} onClick={cancel}>Cancelar</Cancelar>
                 <Salvar disabled={load} onClick={createHabit}>{load ? <Loader type="ThreeDots" color="#FFF" height={50} width={50} radius={0}/>:"Salvar"}</Salvar>
