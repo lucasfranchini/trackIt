@@ -1,10 +1,10 @@
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import logo from "../Assets/Logo.png";
-import Input from "../styles/Input";
+import logo from "../../Assets/Logo.png";
+import Input from "../../styles/Input";
 import { useContext, useEffect, useState } from "react";
 import axios from "axios";
-import UserContext from "../contexts/UserContext";
+import UserContext from "../../contexts/UserContext";
 import Loader from "react-loader-spinner";
 
 export default function Login(){

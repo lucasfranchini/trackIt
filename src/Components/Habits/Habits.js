@@ -1,11 +1,11 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import UserContext from "../contexts/UserContext";
+import UserContext from "../../contexts/UserContext";
 import Habit from "./Habit";
 import NewHabit from "./NewHabit";
-import TodayContext from "../contexts/TodayContext";
-import Body from "../styles/PageBody";
+import TodayContext from "../../contexts/TodayContext";
+import Body from "../../styles/PageBody";
 
 export default function Habits(){
     const {user} = useContext(UserContext);

@@ -4,10 +4,10 @@ import styled from "styled-components";
 import { buildStyles, CircularProgressbar } from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
 import { useContext, useEffect, useState } from "react";
-import UserContext from "../contexts/UserContext";
+import UserContext from "../../contexts/UserContext";
 import axios from "axios";
-import TodayContext from "../contexts/TodayContext";
-import calculatePercentage from "./calculatePercentage";
+import TodayContext from "../../contexts/TodayContext";
+import calculatePercentage from "../../Aux/calculatePercentage";
 
 export default function Menu(){
     const {today,setToday} =useContext(TodayContext);

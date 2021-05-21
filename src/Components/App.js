@@ -1,14 +1,15 @@
 import "../styles/reset.css";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { useState } from "react";
-import Login from "./Login";
-import SignUp from "./SignUp";
-import Habits from "./Habits";
-import Header from "./Header";
-import Menu from "./Menu";
-import Today from "./Today";
+import Login from "./SignUpAndSignIn/Login";
+import SignUp from "./SignUpAndSignIn/SignUp";
+import Habits from "./Habits/Habits";
+import Header from "./HeaderAndMenu/Header";
+import Menu from "./HeaderAndMenu/Menu";
+import Today from "./Today/Today";
 import UserContext from "../contexts/UserContext";
 import TodayContext from "../contexts/TodayContext";
+import History from "./History/History";
 
 
 export default function App() {
@@ -31,6 +32,9 @@ export default function App() {
             </Route>
             <Route path="/hoje" exact>
               <Today/>
+            </Route>
+            <Route path="/historico" exact>
+              <History/>
             </Route>
           </Switch>
           <Menu/>

@@ -2,10 +2,10 @@ import axios from "axios";
 import dayjs from "dayjs";
 import { useContext, useEffect, useState } from "react";
 import styled from "styled-components";
-import TodayContext from "../contexts/TodayContext";
-import UserContext from "../contexts/UserContext";
-import Body from "../styles/PageBody";
-import calculatePercentage from "./calculatePercentage";
+import TodayContext from "../../contexts/TodayContext";
+import UserContext from "../../contexts/UserContext";
+import Body from "../../styles/PageBody";
+import calculatePercentage from "../../Aux/calculatePercentage";
 import TodayHabit from "./TodayHabit";
 
 export default function Today(){

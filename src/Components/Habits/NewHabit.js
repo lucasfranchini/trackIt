@@ -1,9 +1,9 @@
 import axios from "axios";
 import { useContext, useState } from "react";
 import styled from "styled-components";
-import UserContext from "../contexts/UserContext";
-import Input from "../styles/Input";
-import Week from "./Week";
+import UserContext from "../../contexts/UserContext";
+import Input from "../../styles/Input";
+import Week from "../Aux/Week";
 import Loader from "react-loader-spinner";
 
 export default function NewHabit({addHabit,setNewHabit,setHabit,habit}){

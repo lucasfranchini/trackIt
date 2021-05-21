@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { TrashOutline } from 'react-ionicons';
-import Week from "./Week";
+import Week from "../Aux/Week";
 
 export default function Habit({habit,deleteHabit}){
     

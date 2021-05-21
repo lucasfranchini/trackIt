@@ -1,8 +1,8 @@
 import "react-loader-spinner/dist/loader/css/react-spinner-loader.css";
 import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
-import logo from "../Assets/Logo.png";
-import Input from "../styles/Input";
+import logo from "../../Assets/Logo.png";
+import Input from "../../styles/Input";
 import { useState } from "react";
 import axios from "axios";
 import Loader from "react-loader-spinner";
