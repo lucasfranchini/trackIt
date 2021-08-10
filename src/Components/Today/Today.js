@@ -16,10 +16,9 @@ export default function Today(){
         if(token!==""){
             const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",{headers:{Authorization: `Bearer ${token}`}});
             promise.then(answer=>setToday(answer.data));
-            promise.catch(console.log);
+            promise.catch((e)=>alert("houve um erro ao pegar seus habitos"));
         }   
     },[token,setToday]);
-    //usando dia em portugues e no formato pedido
     require('dayjs/locale/pt-br');
     dayjs.extend(require('dayjs/plugin/updateLocale'));
     dayjs.updateLocale('pt-br', {weekdays: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sabado"]}); 

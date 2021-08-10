@@ -18,7 +18,7 @@ export default function History(){
     useEffect(()=>{
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/history/daily",{headers:{Authorization: `Bearer ${user.token}`}});
         promise.then(answer=>setHabits(answer.data));
-        promise.catch(console.log);
+        promise.catch((e)=>alert("houve um erro ao pegar seus habitos"));
     },[user.token,setHabits]);
     
     function showHabit(value){

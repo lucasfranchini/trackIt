@@ -22,7 +22,7 @@ export default function Habits(){
         if(token !== ""){
             const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",{headers:{Authorization: `Bearer ${token}`}})
             promise.then(answer=>setHabits(answer.data));
-            promise.catch((e)=>console.log(e.response));
+            promise.catch((e)=>alert("houve um erro ao pegar seus habitos"));
         }
     },[token]);
 
@@ -35,7 +35,7 @@ export default function Habits(){
                 setHabits(habits.filter(h=>habit.id!==h.id));
                 setToday(today.filter(h=>habit.id!==h.id));
             });
-            promise.catch(console.log);
+            promise.catch((e)=>alert("houve um erro ao apagar seus habitos"));
         }
     }
 
@@ -48,7 +48,7 @@ export default function Habits(){
         });
         const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",{headers:{Authorization: `Bearer ${token}`}});
         promise.then(answer=>setToday(answer.data));
-        promise.catch(console.log);
+        promise.catch((e)=>alert("houve um erro ao adicionar seu habito"));
     }
 
     return (

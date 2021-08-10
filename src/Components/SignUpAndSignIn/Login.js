@@ -30,7 +30,6 @@ export default function Login(){
             localStorage.setItem('user',JSON.stringify(answer.data));
         });
         promise.catch((e)=>{
-            console.log(e.response.status);
             if(e.response.status === 401) alert("Usuario ou senha invalidos, por favor tente novamente");
             else alert("Houve algum erro ao tentar entrar, por favor tente novamente");
             setLoad(false);

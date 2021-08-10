@@ -19,7 +19,7 @@ export default function Menu(){
         if(token!==""){
             const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",{headers:{Authorization: `Bearer ${token}`}});
             promise.then(answer=>setToday(answer.data));
-            promise.catch(console.log);
+            promise.catch((e)=>alert("houve um erro ao pegar seus habitos"));
         }   
     },[token,setToday]);
     useEffect(()=>{calculatePercentage(setPercentage,today)},[today]);
