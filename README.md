@@ -42,12 +42,16 @@ The following tools and frameworks were used in the construction of the project:
 ```bash
 npm i
 ```
-3. Run the front-end with
+3. create .env with:
+```
+REACT_APP_API_BASE_URL=https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit
+```
+4. Run the front-end with
 ```bash
 npm start
 ```
-4. You can optionally build the project running
+5. You can optionally build the project running
 ```bash
 npm run build
 ```
-5. Finally access http://localhost:3000 on your browser 
+6. Finally access http://localhost:3000 on your browser 
