@@ -3,7 +3,7 @@
 
 An easy to use habit manager. create new habits and manage their frequency, delete old habits, see your completes habits every day.
 
-
+<img src="./assets/trackit.gif" alt="using trackit app">
 
 Try it out now at https://trackit-6xt99eubn-lucasfranchini.vercel.app
 
