@@ -23,7 +23,7 @@ export default function Login(){
     function signIn(e){
         e.preventDefault();
         setLoad(true);
-        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/login",body);
+        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/login`,body);
         promise.then(answer=>{
             history.push("/hoje");
             setUser(answer.data);

@@ -11,7 +11,7 @@ export default function TodayHabit({habit}){
     
     function check(){
         if(habit.done){
-            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/uncheck`,{},{headers:{Authorization: `Bearer ${user.token}`}});
+            const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/habits/${habit.id}/uncheck`,{},{headers:{Authorization: `Bearer ${user.token}`}});
             promise.then(()=>{
                 habit.done =false;
                 if(habit.currentSequence===habit.highestSequence){
@@ -28,7 +28,7 @@ export default function TodayHabit({habit}){
             
         }
         else{
-            const promise = axios.post(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}/check`,{},{headers:{Authorization: `Bearer ${user.token}`}});
+            const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/habits/${habit.id}/check`,{},{headers:{Authorization: `Bearer ${user.token}`}});
             promise.then(()=>{
                 habit.done =true;
                 habit.currentSequence ++;

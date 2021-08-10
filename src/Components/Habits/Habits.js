@@ -20,7 +20,7 @@ export default function Habits(){
 
     useEffect(()=>{
         if(token !== ""){
-            const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",{headers:{Authorization: `Bearer ${token}`}})
+            const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/habits`,{headers:{Authorization: `Bearer ${token}`}})
             promise.then(answer=>setHabits(answer.data));
             promise.catch((e)=>alert("houve um erro ao pegar seus habitos"));
         }
@@ -30,7 +30,7 @@ export default function Habits(){
 
     function deleteHabit(habit){
         if(window.confirm("tem certeza que deseja deletar esse habito?")){
-            const promise = axios.delete(`https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/${habit.id}`,{headers:{Authorization: `Bearer ${token}`}});
+            const promise = axios.delete(`${process.env.REACT_APP_API_BASE_URL}/habits/${habit.id}`,{headers:{Authorization: `Bearer ${token}`}});
             promise.then(()=>{
                 setHabits(habits.filter(h=>habit.id!==h.id));
                 setToday(today.filter(h=>habit.id!==h.id));
@@ -46,7 +46,7 @@ export default function Habits(){
             name: "",
             days:[]
         });
-        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",{headers:{Authorization: `Bearer ${token}`}});
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/habits/today`,{headers:{Authorization: `Bearer ${token}`}});
         promise.then(answer=>setToday(answer.data));
         promise.catch((e)=>alert("houve um erro ao adicionar seu habito"));
     }

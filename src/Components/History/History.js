@@ -16,7 +16,7 @@ export default function History(){
     const [shownHabits, setShownHabits] = useState([]);
     
     useEffect(()=>{
-        const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/history/daily",{headers:{Authorization: `Bearer ${user.token}`}});
+        const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/habits/history/daily`,{headers:{Authorization: `Bearer ${user.token}`}});
         promise.then(answer=>setHabits(answer.data));
         promise.catch((e)=>alert("houve um erro ao pegar seus habitos"));
     },[user.token,setHabits]);

@@ -11,7 +11,7 @@ export default function NewHabit({addHabit,setNewHabit,setHabit,habit}){
     const [load,setLoad] = useState(false);
     function createHabit(){
         setLoad(true);
-        const promise = axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits",habit,{headers:{Authorization: `Bearer ${user.token}`}});
+        const promise = axios.post(`${process.env.REACT_APP_API_BASE_URL}/habits`,habit,{headers:{Authorization: `Bearer ${user.token}`}});
         promise.then(answer=>addHabit(answer.data));
         promise.catch(()=>{
             setLoad(false);

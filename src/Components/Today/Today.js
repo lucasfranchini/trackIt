@@ -14,7 +14,7 @@ export default function Today(){
     const token = user===null ? "":user.token;
     useEffect(()=>{
         if(token!==""){
-            const promise = axios.get("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/habits/today",{headers:{Authorization: `Bearer ${token}`}});
+            const promise = axios.get(`${process.env.REACT_APP_API_BASE_URL}/habits/today`,{headers:{Authorization: `Bearer ${token}`}});
             promise.then(answer=>setToday(answer.data));
             promise.catch((e)=>alert("houve um erro ao pegar seus habitos"));
         }   

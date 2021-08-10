@@ -19,7 +19,7 @@ export default function SignUp(){
     function register(e){
         e.preventDefault();
         setLoad(true)
-        const promise =  axios.post("https://mock-api.bootcamp.respondeai.com.br/api/v2/trackit/auth/sign-up",body);
+        const promise =  axios.post(`${process.env.REACT_APP_API_BASE_URL}/auth/sign-up`,body);
         promise.then(()=>history.push("/"));
         promise.catch(()=>{
             alert("houve algum erro no seu registro, por favor tente novamente");
