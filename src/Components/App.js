@@ -11,33 +11,32 @@ import UserContext from "../contexts/UserContext";
 import TodayContext from "../contexts/TodayContext";
 import History from "./History/History";
 
-
 export default function App() {
-  const [user,setUser] = useState(JSON.parse(localStorage.getItem('user')));
-  const [today,setToday] = useState([]);
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
+  const [today, setToday] = useState([]);
   return (
-    <UserContext.Provider value={{user,setUser}}>
-      <TodayContext.Provider value={{today,setToday}}>
+    <UserContext.Provider value={{ user, setUser }}>
+      <TodayContext.Provider value={{ today, setToday }}>
         <BrowserRouter>
-          <Header/>
+          <Header />
           <Switch>
             <Route path="/" exact>
-              <Login/>
+              <Login />
             </Route>
             <Route path="/cadastro" exact>
-              <SignUp/>
+              <SignUp />
             </Route>
             <Route path="/habitos" exact>
-              <Habits/>
+              <Habits />
             </Route>
             <Route path="/hoje" exact>
-              <Today/>
+              <Today />
             </Route>
             <Route path="/historico" exact>
-              <History/>
+              <History />
             </Route>
           </Switch>
-          <Menu/>
+          <Menu />
         </BrowserRouter>
       </TodayContext.Provider>
     </UserContext.Provider>
